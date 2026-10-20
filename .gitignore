@@ -2,6 +2,7 @@
 
 # Compiled output
 /dist
+*.wat
 /tmp
 /out-tsc
 /bazel-out
