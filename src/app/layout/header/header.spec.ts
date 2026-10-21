@@ -14,4 +14,11 @@ describe('HeaderComponent', () => {
     const fixture = TestBed.createComponent(HeaderComponent);
     expect(fixture.componentInstance).toBeTruthy();
   });
+
+  it('links the title to the dashboard', () => {
+    const fixture = TestBed.createComponent(HeaderComponent);
+    fixture.detectChanges();
+    const logo = fixture.nativeElement.querySelector('.logo');
+    expect(logo.getAttribute('href')).toBe('/dashboard');
+  });
 });

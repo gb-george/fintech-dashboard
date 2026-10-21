@@ -20,6 +20,7 @@ class InstrumentState {
   
   const INITIAL_SEED: u32 = 123;
   let seed: u32 = INITIAL_SEED;
+  let nextIndex: i32 = 0;
   const instruments: InstrumentState[] = [];
 
   function getRandom(): f64 {
@@ -33,6 +34,7 @@ class InstrumentState {
 
   export function reset(count: i32): void {
     seed = INITIAL_SEED;
+    nextIndex = 0;
     while (instruments.length > 0) {
       instruments.pop();
     }
@@ -54,7 +56,11 @@ class InstrumentState {
     let jsonResult = '[';
   
     for (let i = 0; i < updatesPerBatch; i++) {
-      let inst = instruments[i % instruments.length];
+      let inst = instruments[nextIndex];
+      nextIndex = nextIndex + 1;
+      if (nextIndex >= instruments.length) {
+        nextIndex = 0;
+      }
 
       let priceCents = inst.lastPriceCents + getRandomInt(-50, 50);
       if (priceCents < 100) priceCents = 100;

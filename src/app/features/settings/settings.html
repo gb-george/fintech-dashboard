@@ -1,22 +1,33 @@
 <section class="page">
-  <h1>Settings</h1>
+  <div class="card">
+    <h1>Settings</h1>
 
-  <form>
-    <label>
-      Instrument count
-      <input type="number" name="instrumentCount" value="5" min="1" max="50" />
-    </label>
+    <form [formGroup]="form" (ngSubmit)="apply()">
+      <label>
+        Instrument count
+        <input type="number" formControlName="instrumentCount" min="1" max="50" step="1" />
+      </label>
+      @if (form.controls.instrumentCount.touched && form.controls.instrumentCount.invalid) {
+        <p class="error">Enter an integer from 1 to 50</p>
+      }
 
-    <label>
-      Updates per batch
-      <input type="number" name="updatesPerBatch" value="100" min="1" max="1000" />
-    </label>
+      <label>
+        Updates per batch
+        <input type="number" formControlName="updatesPerBatch" min="1" max="1000" step="1" />
+      </label>
+      @if (form.controls.updatesPerBatch.touched && form.controls.updatesPerBatch.invalid) {
+        <p class="error">Enter an integer from 1 to 1000</p>
+      }
 
-    <label>
-      Batch interval (ms)
-      <input type="number" name="batchIntervalMs" value="500" min="50" max="2000" />
-    </label>
+      <label>
+        Batch interval (ms)
+        <input type="number" formControlName="batchIntervalMs" min="50" max="2000" step="1" />
+      </label>
+      @if (form.controls.batchIntervalMs.touched && form.controls.batchIntervalMs.invalid) {
+        <p class="error">Enter an integer from 50 to 2000</p>
+      }
 
-    <button type="button">Apply</button>
-  </form>
+      <button type="submit" [disabled]="form.invalid">Apply</button>
+    </form>
+  </div>
 </section>
