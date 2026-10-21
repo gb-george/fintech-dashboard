@@ -10,6 +10,16 @@ export const DEFAULT_SETTINGS: ProducerSettings = {
   batchIntervalMs: 500,
 };
 
+export const INSTRUMENT_SYMBOLS: string[] = [
+  'ALFA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'ZETA', 'ETA', 'THETA',
+  'IOTA', 'KAPPA', 'LAMBDA', 'MU', 'NU', 'XI', 'OMICRON', 'PI',
+  'RHO', 'SIGMA', 'TAU', 'UPSILON', 'PHI', 'CHI', 'PSI', 'OMEGA',
+  'APEX', 'BOLT', 'CORA', 'DOVE', 'EDGE', 'FLUX', 'GLOW', 'HARK',
+  'IRIS', 'JADE', 'KITE', 'LUNA', 'MIRA', 'NOVA', 'ORCA', 'PINE',
+  'QUAD', 'RAIL', 'SAGE', 'TIDE', 'ULMO', 'VELA', 'WAVE', 'XENO',
+  'YARN', 'ZEAL',
+];
+
 export type MarketUpdate = {
   instrument: string;
   priceCents: number;

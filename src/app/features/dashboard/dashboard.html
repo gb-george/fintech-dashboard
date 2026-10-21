@@ -2,26 +2,45 @@
   <div class="toolbar">
     <h1>Dashboard</h1>
     <div class="controls">
-      <span>Status: Paused</span>
-      <button type="button">Resume</button>
+      <span>Status: {{ status() }}</span>
+      @if (status() === 'running') {
+        <button type="button" (click)="pause()">Pause</button>
+      } @else {
+        <button type="button" (click)="resume()">Resume</button>
+      }
     </div>
   </div>
+
+  @if (error(); as message) {
+    <p class="error">{{ message }}</p>
+  }
 
   <table>
     <thead>
       <tr>
         <th>Instrument</th>
         <th>Last traded price</th>
-        <th>Bid–ask spread</th>
+        <th>Bid-ask spread</th>
         <th>Trading volume</th>
         <th>VWAP</th>
         <th>Order-book imbalance</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td colspan="6">No data</td>
-      </tr>
+      @for (row of rows(); track row.symbol) {
+        <tr>
+          <td>{{ row.symbol }}</td>
+          <td>{{ row.lastPriceCents | centsCurrency }}</td>
+          <td>{{ row.spreadCents | centsCurrency }}</td>
+          <td>{{ row.volume }}</td>
+          <td>{{ row.vwapCents | centsCurrency }}</td>
+          <td>{{ row.imbalance | imbalance }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="6">No data</td>
+        </tr>
+      }
     </tbody>
   </table>
 </section>

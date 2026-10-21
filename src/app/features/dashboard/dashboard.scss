@@ -25,6 +25,11 @@ button {
   cursor: pointer;
 }
 
+.error {
+  margin: 0 0 16px;
+  color: #f07178;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -41,6 +46,10 @@ td {
 th {
   color: var(--muted);
   font-weight: 600;
+}
+
+td:not(:first-child) {
+  font-variant-numeric: tabular-nums;
 }
 
 td[colspan] {

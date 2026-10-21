@@ -12,15 +12,16 @@ import {
 export class MarketProducer {
   private worker: Worker | null = null;
   private runId = 0;
-  private settings: ProducerSettings = { ...DEFAULT_SETTINGS };
 
   readonly updates$ = new Subject<MarketUpdate[]>();
   readonly status = signal<'running' | 'paused' | 'error'>('paused');
   readonly error = signal<string | null>(null);
   readonly activeRunId = signal(0);
+  readonly settings = signal<ProducerSettings>({ ...DEFAULT_SETTINGS });
 
-  start(settings: ProducerSettings = this.settings): void {
-    this.settings = { ...settings };
+  start(settings: ProducerSettings = this.settings()): void {
+    const next = { ...settings };
+    this.settings.set(next);
     this.runId += 1;
     this.error.set(null);
     this.status.set('running');
@@ -29,7 +30,7 @@ export class MarketProducer {
     this.post({
       type: 'start',
       runId: this.runId,
-      settings: this.settings,
+      settings: next,
       wasmUrl: new URL('assets/wasm/market_generator.wasm', document.baseURI).href,
     });
   }
