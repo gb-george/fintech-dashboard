@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header';
+import { MarketProducer } from './core/services/market-producer';
+import { HeaderComponent } from './layout/header/header';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,10 @@ import { HeaderComponent } from './header/header';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {}
+export class App {
+  private readonly producer = inject(MarketProducer);
+
+  constructor() {
+    this.producer.start();
+  }
+}
