@@ -7,6 +7,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MarketProducer } from '../../core/services/market-producer';
 
 function integer(control: AbstractControl): ValidationErrors | null {
@@ -25,6 +26,7 @@ function integer(control: AbstractControl): ValidationErrors | null {
 })
 export class SettingsComponent {
   private readonly producer = inject(MarketProducer);
+  private readonly router = inject(Router);
   private readonly current = this.producer.settings();
 
   readonly form = new FormGroup({
@@ -49,5 +51,6 @@ export class SettingsComponent {
     }
 
     this.producer.start(this.form.getRawValue());
+    this.router.navigate(['/dashboard']);
   }
 }

@@ -21,7 +21,7 @@
 
       <label>
         Batch interval (ms)
-        <input type="number" formControlName="batchIntervalMs" min="50" max="2000" step="1" />
+        <input type="number" formControlName="batchIntervalMs" min="50" max="2000" step="50" />
       </label>
       @if (form.controls.batchIntervalMs.touched && form.controls.batchIntervalMs.invalid) {
         <p class="error">Enter an integer from 50 to 2000</p>

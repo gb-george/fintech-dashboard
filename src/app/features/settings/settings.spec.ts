@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { Router, provideRouter } from '@angular/router';
 import { MarketProducer } from '../../core/services/market-producer';
 import { SettingsComponent } from './settings';
 
@@ -21,6 +22,7 @@ describe('SettingsComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [SettingsComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 
@@ -49,6 +51,7 @@ describe('SettingsComponent', () => {
 
   it('applies valid settings as a new run', () => {
     const producer = TestBed.inject(MarketProducer);
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate');
     const fixture = TestBed.createComponent(SettingsComponent);
     fixture.detectChanges();
 
@@ -67,10 +70,12 @@ describe('SettingsComponent', () => {
     });
     expect(producer.activeRunId()).toBe(1);
     expect(producer.status()).toBe('running');
+    expect(navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
   it('rejects values outside the allowed ranges', () => {
     const producer = TestBed.inject(MarketProducer);
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate');
     const fixture = TestBed.createComponent(SettingsComponent);
     fixture.detectChanges();
 
@@ -81,6 +86,7 @@ describe('SettingsComponent', () => {
     expect(producer.activeRunId()).toBe(0);
     expect(producer.settings().instrumentCount).toBe(5);
     expect(fixture.nativeElement.textContent).toContain('Enter an integer from 1 to 50');
+    expect(navigate).not.toHaveBeenCalled();
   });
 
   it('rejects non-integers', () => {
