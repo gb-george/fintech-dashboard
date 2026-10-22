@@ -45,11 +45,6 @@ export class MarketProducer {
     this.post({ type: 'resume' });
   }
 
-  stop(): void {
-    this.status.set('paused');
-    this.post({ type: 'stop' });
-  }
-
   destroy(): void {
     this.worker?.terminate();
     this.worker = null;

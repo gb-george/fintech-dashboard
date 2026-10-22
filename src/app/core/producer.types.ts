@@ -33,8 +33,7 @@ export type MarketUpdate = {
 export type MainToWorker =
   | { type: 'start'; runId: number; wasmUrl: string; settings: ProducerSettings }
   | { type: 'pause' }
-  | { type: 'resume' }
-  | { type: 'stop' };
+  | { type: 'resume' };
 
 export type WorkerToMain =
   | { type: 'batch'; runId: number; updates: MarketUpdate[] }

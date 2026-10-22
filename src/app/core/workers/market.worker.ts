@@ -115,11 +115,6 @@ addEventListener('message', async (event: MessageEvent<MainToWorker>) => {
       schedule();
       return;
     }
-
-    if (message.type === 'stop') {
-      paused = true;
-      clearTimer();
-    }
   } catch (err) {
     send({
       type: 'error',
